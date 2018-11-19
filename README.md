@@ -19,7 +19,6 @@ graalvm と truffel 使って whitespace 作ってみたい
 ## License
 - This project
   - APL か Free BSD と思っているけど、graal の UPL をよく読んでから決める
-  - （whitespace のライセンス何なん？）
 
 ## Authors
 - This project
