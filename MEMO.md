@@ -15,15 +15,12 @@
 - [ANTLR](https://www.antlr.org/)
 - [antlr4](https://github.com/antlr/antlr4)
 - [grammars-v4](https://github.com/antlr/grammars-v4)
-====
 ## graal
 ### References
 - [simplelanguage](https://github.com/graalvm/simplelanguage)
-====
 ## maven
 - antlr plugin は src/main/antlr4 下がデフォルトのターゲットの模様。g4 ファイルがソースに混ざるよりスッキリするのでそれで
 - JDK 11 はいつサポートされるんだろう……動く最新の 10 にしてみる。趣味
-====
 ## whitespace
 - whitespace のサイトが失われているっぽい……
 - ライセンスが不詳。誰も気にしないかもしれないが
@@ -37,7 +34,6 @@
 - [Rubyist Magazine(jp)](https://magazine.rubyist.net/articles/0022/0022-Legwork.html)
 - [whitespacers](https://github.com/hostilefork/whitespacers/)
 - [WhitespaceをC言語ソースに変換する](http://koturn.hatenablog.com/entry/2015/08/10/000000)
-====
 ## others
 - 引用っぽい文言を最初に書きたかった（捏造）
   - graal が聖杯なので聖杯伝説っぽいイメージで
