@@ -1,7 +1,8 @@
 # graalws
-graalvm と truffel 使って whitespace 作ってみたい
+> **The "Wird" is the key to unlocking the secret of the "Graal".**
 
 ## Description
+graalvm と truffel 使って whitespace 作ってみたい
 
 ## Requirement
 - Program Language
@@ -23,10 +24,3 @@ graalvm と truffel 使って whitespace 作ってみたい
 ## Authors
 - This project
   - [Masahiko Kudo](https://github.com/MKudo)
-
-## References
-- [whitespace tutorial(archive)](https://web.archive.org/web/20151108084710/http://compsoc.dur.ac.uk:80/whitespace/tutorial.html)
-- [wikipedia(jp)](https://ja.wikipedia.org/wiki/Whitespace)
-- [Rubyist Magazine(jp)](https://magazine.rubyist.net/articles/0022/0022-Legwork.html)
-- [whitespacers](https://github.com/hostilefork/whitespacers/)
-- [simplelanguage](https://github.com/graalvm/simplelanguage)

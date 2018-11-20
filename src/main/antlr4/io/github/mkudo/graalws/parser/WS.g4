@@ -1,4 +1,4 @@
-grammar ws;
+grammar WS;
 
 file
 	: statement*
@@ -91,7 +91,3 @@ S	: ' ';
 T	: '\t';
 
 COMMENT	: . -> skip;
-
-/*
-VSCode にプラグインがあるみたい
- */
