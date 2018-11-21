@@ -24,3 +24,5 @@ graalvm と truffel 使って whitespace 作ってみたい
 ## Authors
 - This project
   - [Masahiko Kudo](https://github.com/MKudo)
+- Example whitespace codes
+  - Using [whitespacers](https://github.com/hostilefork/whitespacers/) project(examples).

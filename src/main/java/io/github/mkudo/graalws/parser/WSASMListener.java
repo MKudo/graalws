@@ -1,5 +1,9 @@
 package io.github.mkudo.graalws.parser;
 
+import com.oracle.truffle.api.nodes.UnexpectedResultException;
+
+import io.github.mkudo.graalws.runtime.ExceptionCarringError;
+
 public final class WSASMListener extends WSBaseListener {
 	private final String INDENT = "     ";
 	private long lastNumber = 0;
@@ -131,6 +135,10 @@ public final class WSASMListener extends WSBaseListener {
 
 	@Override
 	public void exitNumber(WSParser.NumberContext ctx) {
-		lastNumber = NumberHelper.toLong(ctx);
+		try {
+			lastNumber = NumberHelper.toLong(ctx);
+		} catch (UnexpectedResultException e) {
+			throw new ExceptionCarringError(e);
+		}
 	}
 }

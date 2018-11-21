@@ -5,13 +5,12 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import com.oracle.truffle.api.nodes.UnexpectedResultException;
 
 import io.github.mkudo.graalws.parser.WSParser.NumberContext;
-import io.github.mkudo.graalws.runtime.ExceptionCallingError;
 
 final class NumberHelper {
 	private NumberHelper() {
 	}
 
-	static long toLong(NumberContext ctx) {
+	static long toLong(NumberContext ctx) throws UnexpectedResultException {
 		int childCount = ctx.getChildCount();
 
 		if (childCount > 0) {
@@ -39,7 +38,7 @@ final class NumberHelper {
 							break;
 						}
 					} else {
-						throw new ExceptionCallingError(new UnexpectedResultException(child.getClass().toString()));
+						throw new UnexpectedResultException(child.getClass().toString());
 					}
 				}
 
@@ -51,6 +50,6 @@ final class NumberHelper {
 			}
 		}
 
-		throw new ExceptionCallingError(new UnexpectedResultException("child count is 0"));
+		throw new UnexpectedResultException("child count is 0");
 	}
 }

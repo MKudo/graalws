@@ -5,11 +5,11 @@ package io.github.mkudo.graalws.runtime;
  * 
  * @author kudo
  */
-public class ExceptionCallingError extends Error {
+public class ExceptionCarringError extends Error {
 	private static final long serialVersionUID = 1117913463252992969L;
 	private final Exception actual;
 
-	public ExceptionCallingError(Exception actual) {
+	public ExceptionCarringError(Exception actual) {
 		this.actual = actual;
 	}
 
