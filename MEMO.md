@@ -11,6 +11,9 @@
 - CompositVisitor 実装するくらいなら Listener 複数 add した方が良い（ひとつの Visitor で全部やるのは禁止）
 - 今回は Node ツリーの構築で、Node を継承した何かを取りまわせばいいので Visitor メインかな
 - テスト用の ASM っぽいもの吐き出すのは Listener で
+  - file node だけ enter で後は exit
+    - python 出力に紛れる最初の改行を再現（exit だと最後の改行になる）
+    - 全部 exit だと引数（number node）の処理が面倒なので
 ### References
 - [ANTLR](https://www.antlr.org/)
 - [antlr4](https://github.com/antlr/antlr4)
@@ -28,6 +31,7 @@
   - 2 つの命令がありそうで無さそうで……独自拡張、またはどこからか本流となった拡張の可能性もある
   - 数字やラベルの終端は「改行」で、ここまで含めて処理する模様
 - whitespacers の examples を ASM 出力する python の実装で実行した結果と比較してテスト
+  - fibonacci は出力できなかった……
 ### References
 - [whitespace tutorial(archive)](https://web.archive.org/web/20151108084710/http://compsoc.dur.ac.uk:80/whitespace/tutorial.html)
 - [wikipedia(jp)](https://ja.wikipedia.org/wiki/Whitespace)

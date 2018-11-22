@@ -60,8 +60,8 @@ arithmeticOperation
 
 arithmeticAdd	: S S;
 arithmeticDiv	: T S;
-arithmeticMod	: S L;
-arithmeticMul	: T T;
+arithmeticMod	: T T;
+arithmeticMul	: S L;
 arithmeticSub	: S T;
 
 heapOperation
