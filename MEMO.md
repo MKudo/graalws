@@ -18,8 +18,16 @@
 - [ANTLR](https://www.antlr.org/)
 - [antlr4](https://github.com/antlr/antlr4)
 - [grammars-v4](https://github.com/antlr/grammars-v4)
-## graal
+## graal & truffle
+- 調べていて気がついたのだけど、whitespace からなら直接 Java bytecode 吐いた方が、スタックマシンである JVM と相性が良いような……
+- stack と heap をどちらも Virtual frame 上に表現すると混ざって面倒なので、どうにかしないといけなさそう……
+  - やはり直接バイトコード吐いた方が……
+- ところで何を export したらいいのかよく分からない。truffle 自体が JDK 8 準拠のようなので、jigsaw は対応しない方針
+  - Java 11 以降はフレームワーク開発者はこの点の情報開示に気を付けないといけなさそう
+- 開発者に拡張するポイントを提供して、実装してもらう系のフレームワークは、同時にテストサポートも提供して欲しい……
+- テスト＆デバッグのためにもまずは IO から攻めることにする
 ### References
+- [graal](https://github.com/oracle/graal)
 - [simplelanguage](https://github.com/graalvm/simplelanguage)
 ## maven
 - antlr plugin は src/main/antlr4 下がデフォルトのターゲットの模様。g4 ファイルがソースに混ざるよりスッキリするのでそれで
