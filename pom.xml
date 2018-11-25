@@ -13,6 +13,7 @@
     <jdk.version>10</jdk.version>
     <maven.compiler.source>10</maven.compiler.source>
     <maven.compiler.target>10</maven.compiler.target>
+    <m2e.apt.activation>jdt_apt</m2e.apt.activation>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <antlr4.version>4.7.1</antlr4.version>

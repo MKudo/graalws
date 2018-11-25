@@ -35,3 +35,8 @@ hs_err_pid*
 
 # maven
 target/
+/.apt_generated/
+/.apt_generated_tests/
+
+# build
+bin/
