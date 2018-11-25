@@ -26,6 +26,17 @@
   - Java 11 以降はフレームワーク開発者はこの点の情報開示に気を付けないといけなさそう
 - 開発者に拡張するポイントを提供して、実装してもらう系のフレームワークは、同時にテストサポートも提供して欲しい……
 - テスト＆デバッグのためにもまずは IO から攻めることにする
+### Literal
+- long しか扱わないのに意外と苦戦した
+- @TypeSystem が自動生成するクラスが存在しなくても import に書いておくか、デフォルトスコープで読み込ませないと死ぬ
+  - WSTypes を node じゃないからと別パッケージにおいてはまる
+  - 気持ち悪いけどとりあえず nodes に配置（デフォルトスコープで読ませる）
+- generics いらない気がするけど……
+### Node tree
+- RootNode は特別なノードで型が違う
+- 戻り値の有無があるので、標準的な Statement は void にしておいて、Statement を拡張した Expression node で戻り値を返せるようにするのが作法っぽい
+  - Expression でも executeGeneric で一度全部受け止めて、引数の型別にメソッドに自動で振り分ける模様
+  - WhiteSpace はそもそも引数で型一致させられないから使う必要なかった？
 ### References
 - [graal](https://github.com/oracle/graal)
 - [simplelanguage](https://github.com/graalvm/simplelanguage)
