@@ -17,6 +17,9 @@ graalvm と truffel 使って whitespace 作ってみたい
 - Library
   - Please check pom.xml
 
+- Eclipse
+  - Need to install m2e-apt plugin
+
 ## License
 - This project
   - APL か Free BSD と思っているけど、graal の UPL をよく読んでから決める

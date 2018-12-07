@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>graalws</artifactId>
-  <groupId>com.github.mkudo</groupId>
+  <groupId>io.github.mkudo</groupId>
   <name>graal-white-space</name>
 
   <packaging>jar</packaging>
-  <version>0.0.3-SNAPSHOT</version>
+  <version>0.0.4-SNAPSHOT</version>
 
   <properties>
     <jdk.version>10</jdk.version>

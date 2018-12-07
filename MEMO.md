@@ -1,4 +1,33 @@
 # Memo
+## This project
+- WSBlockNode
+  - 構文上は存在しないが、RootNode は特別なノードのようなので一段挟み込みました
+    - 当初は LoopNode を駆使して実装するつもり……が、jump と call が雑に混在するので行き詰った
+      - ひとまずは力づくで実装した
+      - なので、最適化されなさそうだけど、ここはループの内側ではなく、本体なのでひとまず良しとします
+      - 本物のループの実装は implements RepeatingNode して executeRepeating 実装していくのが正しそう
+  - ControlFlowException はここでハンドルしています
+    - jump target も戻ってくる CallNode も last として扱い、その次の命令から実行するようにしています
+      - jump target = label なので、実行する必要が無い = 次の命令から実行する
+      - call node = return で戻ってきたら次から実行する
+    - ノード構築時に Label を処理しきっても良かったのですが、この制御構造にするために LabelNode を埋め込みました
+      - WhiteSpace 自身の構造からすると、SetLabel にあたる命令は実行系に無くてもいけそう
+  - プログラムの概念構造的にここに callStack あるのおかしくない？（クラスの持ち物として不適切じゃない？）
+- WSReadNode / WSPutNode
+  - 数字／文字の処理をまとめており、分岐でさばいていてイマイチなのでマネをしてはいけません
+  - WhiteSpace は扱う型がこれしかないので雑に作った（言い訳）
+- WSJumpNode
+  - そこを踏まえて Enum にしてみたけどイマイチ……こういうのはどうするのが良いのだろう？？ Comparator でも抱える？？
+- arthmetic nodes
+  - 考えてみれば、スタックに積んでおけばいいので void 戻り値で問題なかった
+- heap / stack
+  - stack
+    - frame の上に実装しています。シンプルに増減させていますが、これが効率がいいのかは不明
+  - heap
+    - 当初 frame の上に混在させていましたが、すぐにバグることに気付いたので移動
+    - scope が重ねられるようなので、きちんと多重 scope にして top scope に置きたかったけど、取り出しが良く分からなかったので諦めています
+      - context -> language#getTopScope() ?
+    - 現在は context に Map で持たせていますが、やはり、何となく top scope に置きたい
 ## ANTLR
 - 複数言語向けの出力ができるようなので g4 ファイル内に言語依存のコードを書かないようにしてみる。趣味
 - statement として全部並べても動くかもしれないけど、先頭トークンでカテゴライズされているんだしまとめた方が良い気がする。趣味
@@ -18,28 +47,28 @@
 - [ANTLR](https://www.antlr.org/)
 - [antlr4](https://github.com/antlr/antlr4)
 - [grammars-v4](https://github.com/antlr/grammars-v4)
-## graal & truffle
-- 調べていて気がついたのだけど、whitespace からなら直接 Java bytecode 吐いた方が、スタックマシンである JVM と相性が良いような……
-- stack と heap をどちらも Virtual frame 上に表現すると混ざって面倒なので、どうにかしないといけなさそう……
-  - やはり直接バイトコード吐いた方が……
-- ところで何を export したらいいのかよく分からない。truffle 自体が JDK 8 準拠のようなので、jigsaw は対応しない方針
-  - Java 11 以降はフレームワーク開発者はこの点の情報開示に気を付けないといけなさそう
-- 開発者に拡張するポイントを提供して、実装してもらう系のフレームワークは、同時にテストサポートも提供して欲しい……
-- テスト＆デバッグのためにもまずは IO から攻めることにする
-### Literal
-- long しか扱わないのに意外と苦戦した
-- @TypeSystem が自動生成するクラスが存在しなくても import に書いておくか、デフォルトスコープで読み込ませないと死ぬ
-  - WSTypes を node じゃないからと別パッケージにおいてはまる
-  - 気持ち悪いけどとりあえず nodes に配置（デフォルトスコープで読ませる）
-- generics いらない気がするけど……
-### Node tree
-- RootNode は特別なノードで型が違う
-- 戻り値の有無があるので、標準的な Statement は void にしておいて、Statement を拡張した Expression node で戻り値を返せるようにするのが作法っぽい
-  - Expression でも executeGeneric で一度全部受け止めて、引数の型別にメソッドに自動で振り分ける模様
-  - WhiteSpace はそもそも引数で型一致させられないから使う必要なかった？
+## graal
 ### References
 - [graal](https://github.com/oracle/graal)
 - [simplelanguage](https://github.com/graalvm/simplelanguage)
+- [JVM-Math-Language](https://github.com/jyukutyo/JVM-Math-Language)
+## truffle
+- Node
+  - @Child / @Children
+    - 付けておくと getChildren で取り出せるようになるので、自力でトラバースする時（テストとか）に便利
+- Jump や Return は例外で飛び出す
+  - 例外、というのが少し気持ち悪いけど ControlFlowException を継承しておくとよろしく最適化してくれたりする、模様
+- どういう時にどうエラーを通知するべき？
+  - parser 時エラーをハンドルするやり方は simplelanguage にある通り最終的に Exception で抜ける。Language#parse の API も Exception を投げられるようになっているので、そこに準拠
+  - 実行時については node のトラバース時の処理になるので Error?
+- 繰り返しや分岐では Profile を操作しておくとコンパイラがより良いコードを生成してくれる、らしい
+  - ※この辺りをやっていたコードは WSBlockNode を大きく修正した時に消したので、完全に調べたことメモです
+  - 繰り返し
+    - break / continue 時に BranchProfile を丁寧に操作
+    - 繰り返しには LoopNode や RepeatingNode といった枠組みや interface も用意されています
+  - 分岐
+    - 分岐毎に ConditionProfile に丁寧に true / false を積み上げる
+    - 分岐は interface や枠組みが無いけど、将来の追加予定だったりする？
 ## maven
 - antlr plugin は src/main/antlr4 下がデフォルトのターゲットの模様。g4 ファイルがソースに混ざるよりスッキリするのでそれで
 - JDK 11 はいつサポートされるんだろう……動く最新の 10 にしてみる。趣味
@@ -50,7 +79,8 @@
   - 2 つの命令がありそうで無さそうで……独自拡張、またはどこからか本流となった拡張の可能性もある
   - 数字やラベルの終端は「改行」で、ここまで含めて処理する模様
 - whitespacers の examples を ASM 出力する python の実装で実行した結果と比較してテスト
-  - fibonacci は出力できなかった……
+  - fibonacci が動かない……
+- I/O read / write がさりげなく非対称でした……（読む時は heap へ、書く時は stack から）
 ### References
 - [whitespace tutorial(archive)](https://web.archive.org/web/20151108084710/http://compsoc.dur.ac.uk:80/whitespace/tutorial.html)
 - [wikipedia(jp)](https://ja.wikipedia.org/wiki/Whitespace)
