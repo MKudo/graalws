@@ -20,7 +20,7 @@ public class WSModNode extends WSArithmeticNode {
 			var left = frame.getLong(second);
 			var result = left % right;
 
-			descriptor.removeFrameSlot(last);
+			descriptor.removeFrameSlot(last.getIdentifier());
 			frame.setLong(second, result);
 
 			return Long.valueOf(result);

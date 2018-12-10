@@ -69,6 +69,14 @@
   - 分岐
     - 分岐毎に ConditionProfile に丁寧に true / false を積み上げる
     - 分岐は interface や枠組みが無いけど、将来の追加予定だったりする？
+- Language
+  - Java SPI (META-INF/services の下に設定を置くアレ) でクラスローダー下の言語を読み込んでいる
+  - ただ、自分で用意せず TruffleLanguage を extends したクラスに @TruffleLanguage.Registration を貼って生成してもらう
+  - Context を生成して、それに Source を eval する（文字列でコードを渡しても内部的には Source にしてから実行している）
+    - たぶんこんな構造（要検証）
+      - Engine : Root、下に複数の言語実行系を抱える
+      - Context : 実行コンテクスト。Engine を持っているけど、複数作れそう。Binding（変数とか）の共有単位？
+      - Source : ひとつのプログラム。ひとつの言語と紐づいている？
 ## maven
 - antlr plugin は src/main/antlr4 下がデフォルトのターゲットの模様。g4 ファイルがソースに混ざるよりスッキリするのでそれで
 - JDK 11 はいつサポートされるんだろう……動く最新の 10 にしてみる。趣味

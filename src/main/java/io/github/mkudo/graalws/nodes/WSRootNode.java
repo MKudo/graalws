@@ -21,6 +21,6 @@ public class WSRootNode extends RootNode {
 	@Override
 	public Object execute(VirtualFrame frame) {
 		block.executeVoid(frame);
-		return null;
+		return Boolean.TRUE;
 	}
 }

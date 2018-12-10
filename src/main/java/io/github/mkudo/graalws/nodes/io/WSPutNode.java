@@ -22,7 +22,7 @@ public final class WSPutNode extends WSStatementNode {
 			var slots = descriptor.getSlots();
 			var targetSlot = slots.get(slots.size() - 1);
 			var targetValue = frame.getLong(targetSlot);
-			descriptor.removeFrameSlot(targetSlot);
+			descriptor.removeFrameSlot(targetSlot.getIdentifier());
 
 			var context = getRootNode().getLanguage(WSLanguage.class).getContextReference().get();
 
