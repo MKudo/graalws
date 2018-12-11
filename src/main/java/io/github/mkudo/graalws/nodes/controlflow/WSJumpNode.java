@@ -69,7 +69,7 @@ public final class WSJumpNode extends WSStatementNode {
 				result = frame.getLong(last) < 0;
 			}
 
-			descriptor.removeFrameSlot(last);
+			descriptor.removeFrameSlot(last.getIdentifier());
 
 			return result;
 		} catch (FrameSlotTypeException e) {

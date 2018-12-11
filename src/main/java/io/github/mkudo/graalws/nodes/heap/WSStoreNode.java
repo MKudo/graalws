@@ -24,8 +24,8 @@ public final class WSStoreNode extends WSStatementNode {
 
 			heap.put(key, value);
 
-			descriptor.removeFrameSlot(last);
-			descriptor.removeFrameSlot(second);
+			descriptor.removeFrameSlot(last.getIdentifier());
+			descriptor.removeFrameSlot(second.getIdentifier());
 		} catch (FrameSlotTypeException e) {
 			throw new ExceptionCarringError(e);
 		}

@@ -1,8 +1,10 @@
 # graalws
 > **The "Wird" is the key to unlocking the secret of the "Graal".**
 
+Personal project to learn graalvm and truffel.
+
 ## Description
-graalvm と truffel 使って whitespace 作ってみたい
+WhiteSpace implementation for graalvm & truffel.
 
 ## Requirement
 - Program Language
@@ -20,9 +22,21 @@ graalvm と truffel 使って whitespace 作ってみたい
 - Eclipse
   - Need to install m2e-apt plugin
 
+## Usage
+In your java code (require graalvm and truffel).
+
+```
+try (Context context = Context.newBuilder().build()) {
+    context.eval("ws", programString);
+}
+```
+
+The Context is `org.graalvm.polyglot.Context`.
+
 ## License
 - This project
   - APL か Free BSD と思っているけど、graal の UPL をよく読んでから決める
+  - (I'm just checking UPL graal license)
 
 ## Authors
 - This project

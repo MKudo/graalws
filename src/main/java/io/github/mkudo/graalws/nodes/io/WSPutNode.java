@@ -34,6 +34,7 @@ public final class WSPutNode extends WSStatementNode {
 				char c = (char) targetValue;
 
 				context.getOutput().print(c);
+				context.getOutput().flush();
 			} else {
 				context.getOutput().println(targetValue);
 			}

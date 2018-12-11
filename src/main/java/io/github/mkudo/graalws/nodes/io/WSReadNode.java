@@ -24,7 +24,7 @@ public final class WSReadNode extends WSStatementNode {
 			var slots = descriptor.getSlots();
 			var targetSlot = slots.get(slots.size() - 1);
 			var key = frame.getLong(targetSlot);
-			descriptor.removeFrameSlot(targetSlot);
+			descriptor.removeFrameSlot(targetSlot.getIdentifier());
 
 			var context = getRootNode().getLanguage(WSLanguage.class).getContextReference().get();
 			var heap = context.getHeap();

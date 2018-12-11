@@ -1,6 +1,10 @@
 package io.github.mkudo.graalws.support;
 
 public final class SampleCodes {
+	public static final String CHAR_A = " \t     \t\n";
+	public static final String CHAR_B = " \t    \t \n";
+	public static final String CHAR_C = " \t    \t\t\n";
+
 	public static final String NUMBER_M1 = "\t\t\n";
 	public static final String NUMBER_0 = " \n";
 	public static final String NUMBER_1 = " \t\n";

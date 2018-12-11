@@ -24,12 +24,12 @@ public final class WSDiscardNode extends WSStatementNode {
 			var targetSlot = slots.get(slots.size() - 1);
 
 			if (count == -1) {
-				descriptor.removeFrameSlot(targetSlot);
+				descriptor.removeFrameSlot(targetSlot.getIdentifier());
 			} else {
 				var topValue = frame.getLong(targetSlot);
 
-				for (int ii = 0; ii <= count; ii++) {
-					descriptor.removeFrameSlot(targetSlot);
+				for (int ii = 0; ii < count; ii++) {
+					descriptor.removeFrameSlot(targetSlot.getIdentifier());
 					targetSlot = slots.get(slots.size() - (2 + ii));
 				}
 
