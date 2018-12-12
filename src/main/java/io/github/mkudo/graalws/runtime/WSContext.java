@@ -8,21 +8,13 @@ import java.util.Map;
 
 import com.oracle.truffle.api.TruffleLanguage.Env;
 
-import io.github.mkudo.graalws.WSLanguage;
-
 public final class WSContext {
-	private final Env env;
-	private final WSLanguage language;
-
 	private final Map<Long, Long> heap = new HashMap<>();
 
 	private final BufferedReader in;
 	private final PrintWriter out;
 
-	public WSContext(final WSLanguage language, Env env) {
-		this.env = env;
-		this.language = language;
-
+	public WSContext(Env env) {
 		this.in = new BufferedReader(new InputStreamReader(env.in()));
 		this.out = new PrintWriter(env.out(), true);
 	}

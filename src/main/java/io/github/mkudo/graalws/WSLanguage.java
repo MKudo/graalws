@@ -23,7 +23,7 @@ public final class WSLanguage extends TruffleLanguage<WSContext> {
 
 	@Override
 	protected WSContext createContext(Env env) {
-		return new WSContext(this, env);
+		return new WSContext(env);
 	}
 
 	@Override
