@@ -11,6 +11,7 @@ import com.oracle.truffle.api.TruffleLanguage.ContextPolicy;
 import com.oracle.truffle.api.nodes.RootNode;
 import com.oracle.truffle.api.source.Source;
 
+import io.github.mkudo.graalws.parser.WSASMListener;
 import io.github.mkudo.graalws.parser.WSLexer;
 import io.github.mkudo.graalws.parser.WSNodeBuilder;
 import io.github.mkudo.graalws.parser.WSParser;
@@ -34,16 +35,23 @@ public final class WSLanguage extends TruffleLanguage<WSContext> {
 	@Override
 	protected CallTarget parse(ParsingRequest request) throws Exception {
 		var source = request.getSource();
+		boolean outASM = false;
 
 		if (!request.getArgumentNames().isEmpty()) {
-			// Or push arguments to stack
-			throw new IllegalArgumentException("WhiteSpace does not support parameter.");
+			var args = request.getArgumentNames();
+
+			if (args.contains("ASM")) {
+				outASM = true;
+			} else {
+				// Or push arguments to stack
+				throw new IllegalArgumentException("WhiteSpace does not support parameter.");
+			}
 		}
 
-		return Truffle.getRuntime().createCallTarget(buildNodes(source));
+		return Truffle.getRuntime().createCallTarget(buildNodes(source, outASM));
 	}
 
-	private RootNode buildNodes(Source source) {
+	private RootNode buildNodes(Source source, boolean outASM) {
 		Lexer lexer = null;
 
 		if (source.getPath() == null) {
@@ -53,6 +61,12 @@ public final class WSLanguage extends TruffleLanguage<WSContext> {
 		}
 
 		var parser = new WSParser(new CommonTokenStream(lexer));
+
+		if (outASM) {
+			var context = getCurrentContext(WSLanguage.class);
+			parser.addParseListener(new WSASMListener(context.getOutput()));
+		}
+
 		// TODO create ErrorListner to report error(as Exception) to truffle
 //		lexer.removeErrorListeners();
 //		parser.removeErrorListeners();
@@ -60,6 +74,7 @@ public final class WSLanguage extends TruffleLanguage<WSContext> {
 //		parser.addErrorListener(listener);
 
 		var builder = new WSNodeBuilder(this);
+
 		var root = builder.visit(parser.file());
 
 		if (root instanceof RootNode) {
